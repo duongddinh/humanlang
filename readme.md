@@ -2,13 +2,19 @@
 
 **Version: 3.0.0**
 
-Welcome to the official documentation for HumanLang, a high-level, object-oriented, and asynchronous programming language designed for readability and ease of use. This document provides a comprehensive reference for all syntax and features.
+Welcome to the official documentation for HumanLang, a high-level, object-oriented, and asynchronous programming language designed for ultimate readability and ease of use. This document provides a comprehensive reference for all syntax and features.
 
-## Core Philosophy
+## Why? isn't this just python?
 
-HumanLang is a for fun project
+In simple terms yes but no, imagine Spanish is invented before English; it is like a person who trying to invent english but it is basically spanish. And for people to understand English, they have to translate English to Spanish.
 
-HumanLang is built on a simple premise: code should be as easy to read as it is to write. By using a syntax that mirrors natural language, developers can focus on the logic of their applications without getting bogged down in complex symbols and structures.
+## Core Philosophy: Just Talk to Your Code, Especially for Networks.
+
+HumanLang is a "for fun" project, but it's built on a serious idea: **what if you could just *talk* to your computer and it understood your intentions, especially for complex tasks like networking?** Who wants to write complicated code anymore when you can simply describe what you want to do?
+
+I believe code should be as easy to read as it is to write. By using a syntax that mirrors natural language, developers (and even non-developers\!) can focus purely on the logic of their applications, without getting bogged down in cryptic symbols, obscure libraries, or complex API calls.
+
+**HumanLang is specifically designed to make networking operations intuitive and straightforward, removing the layers of abstraction usually required.** This means you can perform actions like port scans, send custom packets, or sniff network traffic using commands that sound like plain English, making network programming accessible and less error-prone.
 
 ## Getting Started
 
@@ -19,6 +25,14 @@ humanlang your_script.human
 ```
 
 **Note:** Many networking commands require administrative (`sudo`) privileges to run.
+
+### Installation
+
+```bash
+git clone https://github.com/duongddinh/humanlang.git
+cd humanlang
+pip install -e .
+```
 
 -----
 
@@ -352,35 +366,39 @@ print "Punchline: " + joke_data's punchline.
 
 ## **Part 4: Networking & Security Toolkit**
 
+**This is where HumanLang truly shines\!** We've integrated powerful networking capabilities directly into the language with intuitive, human-readable commands. Forget complex library imports and obscure function calls – just tell HumanLang what you want to do.
+
 **Note:** These commands often require administrative (`sudo`) privileges.
 
-### **4.1. Network Diagnostics**
+### **4.1. Network Diagnostics: Just Ask HumanLang to Check the Network.**
 
-  * **ARP Scan**: `Perform an arp scan on <network_cidr> and store the results in <variable>.`
-  * **Ping**: `Perform a ping to <host> and store the result in <variable>.`
-  * **Traceroute**: `Perform a traceroute to <host> and store the result in <variable>.`
+  * **ARP Scan**: Discover live hosts on a local network.
+      * `Perform an arp scan on <network_cidr> and store the results in <variable>.`
+  * **Ping**: Test host reachability.
+      * `Perform a ping to <host> and store the result in <variable>.`
+  * **Traceroute**: Map the path to a host.
+      * `Perform a traceroute to <host> and store the result in <variable>.`
 
-### **4.2. Port Scanning**
+### **4.2. Port Scanning: Find Open Doors on a Target.**
 
-  * **TCP SYN Scan**: `Perform a port scan on <host> for ports "<ports>" and store the results in <variable>.`
-      * `<ports>` can be a comma-separated list (`"22,80,443"`) or a range (`"20-1024"`).
+  * **TCP SYN Scan**: Quickly check for open TCP ports.
+      * `Perform a port scan on <host> for ports "<ports>" and store the results in <variable>.`
+          * `<ports>` can be a comma-separated list (e.g., `"22,80,443"`) or a range (e.g., `"20-1024"`).
 
-### **4.3. Packet Crafting & Sending**
+### **4.3. Packet Crafting & Sending: Build and Blast Custom Packets.**
 
-1.  **Create Packet**: `Create a new "Packet" with layers "<Layer1/Layer2>" and call it <packet_variable>.`
-      * Supported layers: `ETHER`, `IP`, `TCP`, `ICMP`.
-2.  **Configure Packet**: `Set <packet_variable>'s <property> to <value>.`
-      * Common properties: `dst` (destination), `dport` (destination port), `flags` (`"S"` for SYN, `"A"` for ACK, etc.).
-3.  **Send Packet**: `Send packet <packet_variable> and store the reply in <reply_variable>.`
+No more deep dives into packet structures. HumanLang lets you describe your packets layer by layer and send them.
 
-### **4.4. Network Sniffing**
+1.  **Create Packet**: Define your packet's layers.
+      * `Create a new "Packet" with layers "<Layer1/Layer2>" and call it <packet_variable>.`
+          * Supported layers: `ETHER`, `IP`, `TCP`, `ICMP`, `ARP`.
+2.  **Configure Packet**: Set specific fields as you would any variable.
+      * `Set <packet_variable>'s <property> to <value>.`
+          * Common properties include: `dst` (destination), `dport` (destination port), `flags` (`"S"` for SYN, `"A"` for ACK, etc.), `src`, `sport`.
+3.  **Send Packet**: Launch your crafted packet and capture the reply.
+      * `Send packet <packet_variable> and store the reply in <reply_variable>.`
 
-  * **Capture Traffic**: `Start sniffing on interface "<iface>" with filter "<bpf_filter>" for <seconds> seconds and store packets in <variable>.`
+### **4.4. Network Sniffing: Listen to the Network Conversation.**
 
-## install
-
-```
-git clone https://github.com/duongddinh/humanlang.git
-
-pip install -e .
-```
+  * **Capture Traffic**: Intercept and analyze packets flowing through an interface.
+      * `Start sniffing on interface "<iface>" with filter "<bpf_filter>" for <seconds> seconds and store packets in <variable>.`
