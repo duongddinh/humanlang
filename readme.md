@@ -380,7 +380,7 @@ print "Punchline: " + joke_data's punchline.
 ## install
 
 ```
-git clone https://duongddinh/humanlang
+git clone https://github.com/duongddinh/humanlang.git
 
 pip install -e .
 ```
