@@ -1,0 +1,15 @@
+# A simple program to greet the user and introduce humanlang.
+
+print "--- Welcome to humanlang ---"
+
+# Declare a variable with a specific type.
+Declare user_name as a String.
+
+# Ask for user input and store it.
+Ask "Before we begin, what is your name?" and set the answer to user_name.
+
+# Combine strings by re-using the 'user_name' variable.
+Set user_name to "Hello, " + user_name + "! It is nice to meet you."
+show me user_name.
+
+print "This language is ready for your commands!"

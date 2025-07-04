@@ -1,0 +1,47 @@
+# network.human
+# A script to demonstrate ping, traceroute, and file writing.
+
+print "--- Network Diagnostic Tool ---"
+
+# Declare variables to hold user input and results.
+Declare target_host as a String.
+Declare report_content as a String.
+
+Ask "Enter a hostname or IP address to scan (e.g., google.com or 8.8.8.8):" and set the answer to target_host.
+
+Set report_content to "Network Diagnostic Report for: " + target_host + "\n\n".
+
+# --- Perform Ping ---
+Try to
+    print "--- Running Ping ---"
+    Declare ping_results as a String.
+    Perform a ping to target_host and store the result in ping_results.
+    
+    print ping_results.
+    Set report_content to report_content + "--- PING RESULTS ---\n" + ping_results + "\n\n".
+On error
+    print "Ping failed. Reason: " + error_message.
+    Set report_content to report_content + "--- PING FAILED ---\n" + error_message + "\n\n".
+End try
+
+
+# --- Perform Traceroute ---
+Try to
+    print "--- Running Traceroute ---"
+    Declare trace_results as a String.
+    Perform a traceroute to target_host and store the result in trace_results.
+
+    print trace_results.
+    Set report_content to report_content + "--- TRACEROUTE RESULTS ---\n" + trace_results + "\n\n".
+On error
+    print "Traceroute failed. Reason: " + error_message.
+    Set report_content to report_content + "--- TRACEROUTE FAILED ---\n" + error_message + "\n\n".
+End try
+
+
+# --- Write the report to a file ---
+Set filename to "network_report_for_" + target_host + ".txt".
+Write report_content to the file filename.
+
+print "Diagnostic complete. Full report saved to: " + filename.
+

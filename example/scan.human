@@ -1,0 +1,34 @@
+
+show me "Starting network scan..."
+
+declare local_network as a String
+
+ask "Please enter your local network CIDR (e.g., 192.168.1.0/24):" and set the answer to local_network
+
+declare discovered_hosts as a List of Object
+
+try to
+    perform an arp scan on local_network and store the results in discovered_hosts
+on error
+    show me "Error performing ARP scan: " plus error_message
+    show me "Please ensure you have the necessary permissions (e.g., run as administrator/root)."
+end try
+
+if discovered_hosts's length is greater than 0 then
+    show me "Discovered hosts:"
+    show me "Total hosts found: " plus discovered_hosts's length
+
+    declare index as a Number
+    set index to 0
+
+    while index is less than discovered_hosts's length is true
+        for each host in discovered_hosts
+            show me "Host object raw: " plus host
+            show me "Host IP: " plus host's ip
+            show me "Host MAC: " plus host's mac
+        end for
+else
+    show me "No hosts discovered on " plus local_network
+end if
+
+show me "Network scan complete."

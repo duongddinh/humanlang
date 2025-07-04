@@ -1,0 +1,80 @@
+# --- Dr. Human's Grand Experiment: A Full Feature Test ---
+
+print "The laboratory is buzzing with energy! The experiment begins..."
+
+# --- OOP and Static Typing ---
+Define a class named "MadScientist".
+    # Properties must be of the correct type.
+    It has a property named "name" of type String.
+    It has a property named "evil_laugh" of type String.
+    It has a property named "invention_progress" of type Number.
+
+    Define a task named "initializer" that accepts "n" of type String, "l" of type String.
+        Set this's name to n.
+        Set this's evil_laugh to l.
+        Set this's invention_progress to 0.
+    End task
+
+    Define a task named "work_on_invention".
+        Add 25 to this's invention_progress.
+        print this's name + " shouts: 'It's coming together! " + this's evil_laugh + "'"
+    End task
+End class
+
+Create a new "MadScientist" with "Dr. Frankenhüman", "Mwahahaha" and call it the_doctor.
+
+# --- Control Flow (while loop and if/then/else) ---
+print "The doctor begins their work on the great creation..."
+While the_doctor's invention_progress is less than 100 is true
+    Perform the_doctor's task named "work_on_invention".
+    
+    If the_doctor's invention_progress is equal to 100 then
+        print "The creation is complete!"
+    Else
+        print "Progress is now " + the_doctor's invention_progress + "%."
+    End if
+End while
+
+
+# --- Error Handling & File I/O ---
+print "Now, to find the secret instructions..."
+Try to
+    # This will fail because the file doesn't exist.
+    Read the file "secret_monster_blueprints.txt" and store the contents in plans.
+    print "The secret plans have been read!"
+On error
+    # The 'On error' block catches the failure gracefully.
+    print "The blueprints are missing! No matter, we'll improvise!"
+    print "(Error caught: " + error_message + ")"
+End try
+
+
+# --- Concurrency, Networking, and JSON Parsing ---
+Define an asynchronous task named "gather_cosmic_rays" that accepts "source" of type String.
+    print "Gathering cosmic rays from " + source + "..."
+    Perform an HTTP GET request to "https://official-joke-api.appspot.com/random_joke" and store the result in joke_json.
+    
+    Parse the JSON string joke_json and store the result in joke_data.
+    Set the_joke to joke_data's setup + " ... " + joke_data's punchline.
+    print "Cosmic Ray Data Acquired: '" + the_joke + "'"
+End task
+
+print "The creation needs cosmic energy! Starting collectors..."
+Declare running_tasks as a List.
+Perform "gather_cosmic_rays" with "the digital ether" asynchronously.
+Await all tasks.
+print "The creation is now supercharged with cosmic joke energy!"
+
+
+# --- Low-Level Networking (Requires sudo) ---
+print "Now... let's see if the creation is ALIVE on the network!"
+Try to
+    # Perform a SYN scan on the local machine to "check its pulse".
+    Perform a port scan on 127.0.0.1 for ports "22 and store the results in pulse_status.
+    print "Checking local network pulse... Port 22 (SSH) is " + pulse_status.
+On error
+    print "Could not check network pulse. Reason: " + error_message.
+    print "Hint: You probably need to run this script with 'sudo'."
+End try
+
+print "The experiment is finished!"

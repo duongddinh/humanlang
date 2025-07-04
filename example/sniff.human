@@ -1,0 +1,83 @@
+# security_audit.human
+# A script to perform a basic network security audit.
+
+print "--- Advanced Network Security Auditor ---"
+
+Declare target_host as a String.
+Declare audit_report as a String.
+
+Ask "Enter a target hostname or IP for the audit:" and set the answer to target_host.
+Set audit_report to "Security Audit Report for: " + target_host + "\n" + "----------------------------------------\n\n".
+
+# --- 1. Advanced Port Scanning ---
+print "\n--- Phase 1: Performing Port Scan ---"
+Try to
+    # Scan common web and SSH ports
+    Declare open_ports as an Object.
+    Perform a port scan on target_host for ports "22, 80, 443, 8080" and store the results in open_ports.
+
+    # FIX: Explicitly convert the dictionary to a string before using it.
+    Set port_results_str to "" + open_ports.
+    Set audit_report to audit_report + "Port Scan Results:\n" + port_results_str + "\n\n".
+    print "Scan results: " + port_results_str.
+On error
+    print "Port scan failed: " + error_message.
+    Set audit_report to audit_report + "Port Scan FAILED: " + error_message + "\n\n".
+End try
+
+
+# --- 2. Custom Packet Crafting ---
+print "\n--- Phase 2: Sending Custom TCP SYN Packet to Port 80 ---"
+Try to
+    # Create a custom TCP packet to send to the target's web server
+    Create a new "Packet" with layers "IP/TCP" and call it custom_packet.
+    Set custom_packet's dst to target_host.
+    Set custom_packet's dport to 80.
+    Set custom_packet's flags to "S". # "S" for SYN
+
+    print "Sending this packet:".
+    print custom_packet.
+
+    Declare packet_reply as a Packet.
+    Send packet custom_packet and store the reply in packet_reply.
+
+    If packet_reply is not equal to None then
+        print "Received a reply:".
+        print packet_reply.
+        Set audit_report to audit_report + "Custom Packet Reply (Port 80):\n" + packet_reply's summary + "\n\n".
+    Else
+        print "No reply received for custom packet.".
+        Set audit_report to audit_report + "Custom Packet Reply (Port 80): No reply received.\n\n".
+    End if
+On error
+    print "Sniffing failed: " + error_message.
+    Set audit_report to audit_report + "Sniffing FAILED: " + error_message + "\n\n".
+End try
+
+
+# --- 3. Network Sniffing ---
+Show me "\n--- Phase 3: Sniffing Local Network Traffic ---"
+Try to
+    # Sniff for any TCP traffic on the default interface for 10 seconds.
+    # Note: You may need to change "en0" to your actual network interface (e.g., "eth0" on Linux).
+    Declare captured_packets as a List.
+    Start sniffing on interface "en0" with filter "tcp" for 10 seconds and store packets in captured_packets.
+
+    Set audit_report to audit_report + "Captured " + captured_packets's length + " TCP packets.\n".
+    Show me "Sniffing results:".
+    For each packet_summary in captured_packets
+        Show me "- " + packet_summary.
+        Set audit_report to audit_report + "- " + packet_summary + "\n".
+    End for
+On error
+    Show me "Sniffing failed: " + error_message.
+    Set audit_report to audit_report + "Sniffing FAILED: " + error_message + "\n\n".
+End try
+
+
+# --- 4. Final Report ---
+Set filename to "security_report_" + target_host + ".txt".
+Write audit_report to the file filename.
+
+print "\n----------------------------------------".
+print "Audit complete. Full report saved to: " + filename.
