@@ -1,8 +1,6 @@
-# HumanLang: The Complete Language Reference
+# HumanLang: The Evolution From ApeLang
 
-**Version: 3.0.0**
-
-Welcome to the official documentation for HumanLang, a high-level, object-oriented, and asynchronous programming language designed for ultimate readability and ease of use. This document provides a comprehensive reference for all syntax and features.
+From [apelang](https://github.com/duongddinh/apelang) to humanlang, the evolution! We invented wifi, and now we have advanced network capabilities!
 
 ## Why? isn't this just python?
 
